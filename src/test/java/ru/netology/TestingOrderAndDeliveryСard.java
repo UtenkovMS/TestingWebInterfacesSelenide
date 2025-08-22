@@ -3,6 +3,7 @@ package ru.netology;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class TestingOrderAndDeliveryСard {
 
     @Test
-    void sholdFillFieldsAndSubmitForm(){
+    void sholdFillFieldsAndSubmitForm() {
 
         // Открываем веб-страницу http://localhost:9999
         Selenide.open("http://localhost:9999");
@@ -23,12 +24,14 @@ public class TestingOrderAndDeliveryСard {
         // Заполняем поле "Город" словом "Самара"
         $("[data-test-id='city'] input").setValue("Самара");
 
-        $("[data-test-id='date'] input").sendKeys(Keys.CONTROL + "a");
-        $("[data-test-id='date'] input").sendKeys(Keys.DELETE);
+        SelenideElement dataInput = $("[data-test-id='date'] input");
 
-        // String - строчный тип данных.
-        // Создаем переменную selector и присваиваем ей значение CSS-селектора "[data-test-id='date'] input"
-        String selector = "[data-test-id='date'] input";
+        // Очищаем поле ввода даты
+        // C помощью метода .sendKeys() и команды Keys. вводим задаем сочетание клавиш Ctr и a, чтобы выделить в поле текст
+        dataInput.sendKeys(Keys.CONTROL + "a");
+
+        // C помощью метода .sendKeys() и команды Keys. задаем нажатие клавиши Del, чтобы удалить ранее выделенный текст
+        dataInput.sendKeys(Keys.DELETE);
 
         // LocalDate - тип данных соответствующий дате.
         // Создаем переменную date.
@@ -41,16 +44,15 @@ public class TestingOrderAndDeliveryСard {
         // Создаем переменную formatter.
         // С помощью класса DateTimeFormatter задаем формат даты .ofPattern("yyyy MM dd")
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         // Тип данных для переменной formatDate задается String (текстовый)
-        // Метод .format(formatter) преобразует дату (числовой тип данных) в строчный тип данных.
+        // Метод date.format() преобразует дату из числового типа данных в строчный тип данных.
 
         String formatDate = date.format(formatter);
 
-        // Переменной selector присваивается значение переменной formatDate
-
-       $(selector).setValue(formatDate);
+        // Устанавливаем новую дату
+        dataInput.setValue(formatDate);
 
         // Заполняем поле "Фамилия имя" словами "Утенков Максим"
         $("[data-test-id='name'] input").setValue("Утенков Максим");
@@ -64,9 +66,15 @@ public class TestingOrderAndDeliveryСard {
         // Кликаем по кнопке "Забронировать"
         $("span.button__text").click();
 
-        // Проверяем наличие всплывающего окна с надписью "Успешно!"
-        $(Selectors.withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
+        // Осуществляем проверку с помощью библиотеки Selectors и метода .withText(), где указываем искомый текст "25.08.2025"
+        // Далее с помощью метода .shouldBe() задаем настройки поиска Condition.visible - т.е., текст "25.08.2025" д.б. видим на странице.
+        $(Selectors.withText("25.08.2025")).shouldBe(Condition.visible, Duration.ofSeconds(5));
+
+        // Осуществляем проверку наличия текста во всплывающем сообщении: "25.08.2025"
+
+        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.exactText("25.08.2025")).shouldBe(Condition.visible, Duration.ofSeconds(5));
+
+//        $(Selector.withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
 
     }
-
 }
