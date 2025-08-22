@@ -44,7 +44,7 @@ public class TestingOrderAndDeliveryСard {
         // Создаем переменную formatter.
         // С помощью класса DateTimeFormatter задаем формат даты .ofPattern("yyyy MM dd")
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
 
         // Тип данных для переменной formatDate задается String (текстовый)
         // Метод date.format() преобразует дату из числового типа данных в строчный тип данных.
@@ -66,13 +66,14 @@ public class TestingOrderAndDeliveryСard {
         // Кликаем по кнопке "Забронировать"
         $("span.button__text").click();
 
-        // Осуществляем проверку с помощью библиотеки Selectors и метода .withText(), где указываем искомый текст "25.08.2025"
-        // Далее с помощью метода .shouldBe() задаем настройки поиска Condition.visible - т.е., текст "25.08.2025" д.б. видим на странице.
-        $(Selectors.withText("25.08.2025")).shouldBe(Condition.visible, Duration.ofSeconds(5));
+        // Осуществляем проверку наличие отражаемого текста в поле дата с помощью метода .shouldHave()
+        // и настройки Condition.exactText, где указываем искомый текст "25.08.2025"
+        $("[data-test-id='date'] [class='input__control']").shouldHave(Condition.exactText("25.08.2025"), Duration.ofSeconds(15)).shouldBe(Condition.visible);
 
-        // Осуществляем проверку наличия текста во всплывающем сообщении: "25.08.2025"
 
-        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.exactText("25.08.2025")).shouldBe(Condition.visible, Duration.ofSeconds(5));
+        // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "25.08.2025"
+
+        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.exactText("25.08.2025"), Duration.ofSeconds(15)).shouldBe(Condition.visible);
 
 //        $(Selector.withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
 
