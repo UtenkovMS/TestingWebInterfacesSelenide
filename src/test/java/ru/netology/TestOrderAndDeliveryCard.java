@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class TestingOrderAndDeliveryСard {
+public class TestOrderAndDeliveryCard {
 
     @Test
     void sholdFillFieldsAndSubmitForm() {
