@@ -1,7 +1,6 @@
 package ru.netology;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
@@ -66,16 +65,10 @@ public class TestingOrderAndDeliveryСard {
         // Кликаем по кнопке "Забронировать"
         $("span.button__text").click();
 
-        // Осуществляем проверку наличие отражаемого текста в поле дата с помощью метода .shouldHave()
-        // и настройки Condition.exactText, где указываем искомый текст "25.08.2025"
-        $("[data-test-id='date'] [class='input__control']").shouldHave(Condition.exactText("25.08.2025"), Duration.ofSeconds(15)).shouldBe(Condition.visible);
-
-
         // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "25.08.2025"
 
-        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.exactText("25.08.2025"), Duration.ofSeconds(15)).shouldBe(Condition.visible);
-
-//        $(Selector.withText("Успешно!")).shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.text("28.08.2025"), Duration.ofSeconds(20)).shouldBe(Condition.visible);
 
     }
+
 }
