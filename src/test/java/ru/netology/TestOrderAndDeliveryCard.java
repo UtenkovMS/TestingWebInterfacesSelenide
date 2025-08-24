@@ -65,9 +65,9 @@ public class TestOrderAndDeliveryCard {
         // Кликаем по кнопке "Забронировать"
         $("span.button__text").click();
 
-        // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "28.08.2025"
+        // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "27.08.2025"
 
-        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.text("28.08.2025"), Duration.ofSeconds(20)).shouldBe(Condition.visible);
+        $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.text("27.08.2025"), Duration.ofSeconds(20)).shouldBe(Condition.visible);
 
     }
 
