@@ -29,7 +29,7 @@ public class TestingOrderAndDeliveryСard {
         // C помощью метода .sendKeys() и команды Keys. вводим задаем сочетание клавиш Ctr и a, чтобы выделить в поле текст
         dataInput.sendKeys(Keys.CONTROL + "a");
 
-        // C помощью метода .sendKeys() и команды Keys. задаем нажатие клавиши Del, чтобы удалить ранее выделенный текст
+        // С помощью метода .sendKeys() и команды Keys. задаем нажатие клавиши Del, чтобы удалить ранее выделенный текст
         dataInput.sendKeys(Keys.DELETE);
 
         // LocalDate - тип данных соответствующий дате.
@@ -65,7 +65,7 @@ public class TestingOrderAndDeliveryСard {
         // Кликаем по кнопке "Забронировать"
         $("span.button__text").click();
 
-        // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "25.08.2025"
+        // Осуществляем проверку наличия отражаемого текста во всплывающем сообщении: "28.08.2025"
 
         $("[data-test-id='notification'] [class='notification__content']").shouldHave(Condition.text("28.08.2025"), Duration.ofSeconds(20)).shouldBe(Condition.visible);
 
